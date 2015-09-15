@@ -47,6 +47,7 @@ pygame.display.update()
 # run the game loop
 while True:
 
+    
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -54,8 +55,17 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             x,y = event.pos
             if upButton.collidepoint(x,y):
+                ##pygame.quit()
+                ##sys.exit()
                 frequency = frequency + 0.1
+
+            if downButton.collidepoint(x,y):
+                ##pygame.quit()
+                ##sys.exit()
+                frequency = frequency - 0.1
                 
+    text = basicFont.render('Freq:' + str(frequency), True, WHITE, BLUE)
+    
     # draw the text onto the surface
     windowSurface.blit(text, textRect)
 
