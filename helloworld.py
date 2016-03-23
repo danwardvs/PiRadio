@@ -5,9 +5,9 @@ from pygame.locals import *
 pygame.init()
 frequency = 100.0
 
-upButton = Rect(220,10,90,60)
-downButton = Rect(220,90,90,60)
-playButton = Rect(220,170,90,60)
+upButton = Rect(10,215,50,25)
+downButton = Rect(70,215,50,25)
+playButton = Rect(130,215,50,25)
 
 # set up the window
 windowSurface = pygame.display.set_mode((320, 240), 0, 32)
@@ -24,6 +24,11 @@ BLUE = (0, 0, 255)
 basicFont = pygame.font.SysFont(None, 48)
 
 # set up the text
+label = basicFont.render('+     -     >', True, BLACK)
+labelRect = label.get_rect()
+labelRect.centerx = 95
+labelRect.centery = 225
+
 text = basicFont.render('Freq:' + str(frequency), True, WHITE, BLUE)
 textRect = text.get_rect()
 textRect.centerx = 110
@@ -33,10 +38,10 @@ textRect.centery = 120
 windowSurface.fill(WHITE)
 
 # draw the text's background rectangle onto the surface
-pygame.draw.rect(windowSurface, RED, (textRect.left - 20, textRect.top - 20, textRect.width + 40, textRect.height + 40))
-pygame.draw.rect(windowSurface, BLACK, upButton)
-pygame.draw.rect(windowSurface, BLACK, downButton)
-pygame.draw.rect(windowSurface, BLACK, playButton)
+pygame.draw.rect(windowSurface, RED, (textRect.left - 2, textRect.top - 2, textRect.width + 4, textRect.height + 4))
+pygame.draw.rect(windowSurface, BLUE, upButton)
+pygame.draw.rect(windowSurface, BLUE, downButton)
+pygame.draw.rect(windowSurface, RED, playButton)
 
 # draw the text onto the surface
 windowSurface.blit(text, textRect)
@@ -63,11 +68,17 @@ while True:
                 ##pygame.quit()
                 ##sys.exit()
                 frequency = frequency - 0.1
+
+            if playButton.collidepoint(x,y):
+                pygame.quit()
+                sys.exit()
+
                 
     text = basicFont.render('Freq:' + str(frequency), True, WHITE, BLUE)
     
     # draw the text onto the surface
     windowSurface.blit(text, textRect)
+    windowSurface.blit(label, labelRect)
 
     # draw the window onto the screen
     pygame.display.update()
