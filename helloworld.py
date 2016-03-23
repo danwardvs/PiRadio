@@ -10,7 +10,7 @@ downButton = Rect(70,215,50,25)
 playButton = Rect(130,215,50,25)
 
 # set up the window
-windowSurface = pygame.display.set_mode((320, 240), 0, 32)
+windowSurface = pygame.display.set_mode((320, 240), pygame.FULLSCREEN, 32)
 pygame.display.set_caption('Hello world!')
 
 # set up the colors
