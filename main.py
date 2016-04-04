@@ -1,5 +1,11 @@
 import pygame, sys
 from pygame.locals import *
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # set up pygame
 pygame.init()
@@ -49,9 +55,23 @@ windowSurface.blit(text, textRect)
 # draw the window onto the screen
 pygame.display.update()
 
+def scroll_up():
+    frequency = frequency + 0.1
+
+def scroll_down():
+    frequency = frequency - 0.1
+
+def play():
+    pygame.quit()
+    sys.exit()
+
 # run the game loop
 while True:
 
+    state_22 = GPIO.input(22)
+
+    if state_22:
+        play()
     
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -60,18 +80,14 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             x,y = event.pos
             if upButton.collidepoint(x,y):
-                ##pygame.quit()
-                ##sys.exit()
-                frequency = frequency + 0.1
+                scroll_up()
 
             if downButton.collidepoint(x,y):
-                ##pygame.quit()
-                ##sys.exit()
-                frequency = frequency - 0.1
+                scroll_down()
 
             if playButton.collidepoint(x,y):
-                pygame.quit()
-                sys.exit()
+                play()
+                
 
                 
     text = basicFont.render('Freq:' + str(frequency), True, WHITE, BLUE)
