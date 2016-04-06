@@ -3,9 +3,9 @@ from pygame.locals import *
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # set up pygame
 pygame.init()
@@ -68,9 +68,9 @@ def play():
 # run the game loop
 while True:
 
-    state_22 = GPIO.input(22)
+    state_18 = GPIO.input(18)
 
-    if state_22:
+    if state_18==False:
         play()
     
     for event in pygame.event.get():
