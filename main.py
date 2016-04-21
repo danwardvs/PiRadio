@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 import RPi.GPIO as GPIO
 import time
+import PiFm
 
 GPIO.setmode(GPIO.BCM)
 
@@ -12,15 +13,15 @@ GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # set up pygame
 pygame.init()
-frequency = 100.0
+frequency = 95.9
 
 upButton = Rect(10,215,50,25)
 downButton = Rect(70,215,50,25)
 playButton = Rect(130,215,50,25)
 
 # set up the window
-windowSurface = pygame.display.set_mode((320, 240), 0, 32)
-pygame.display.set_caption('Hello world!')
+windowSurface = pygame.display.set_mode((320, 240), pygame.FULLSCREEN, 32)
+pygame.display.set_caption('PiRadio')
 
 # set up the colors
 BLACK = (0, 0, 0)
@@ -60,8 +61,9 @@ pygame.display.update()
 
 
 def play():
-    pygame.quit()
-    sys.exit()
+    print("Playing at " + str(frequency))
+    PiFm.play_sound("sound.wav",str(frequency))
+    
 
 # run the game loop
 while True:

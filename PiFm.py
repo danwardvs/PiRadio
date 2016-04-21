@@ -3,6 +3,6 @@
 from subprocess import call
 
 
-def play_sound( filename ):
-   call(["./pifm", filename])
+def play_sound( filename,frequency ):
+   call(["./pifm", filename,frequency])
    return
