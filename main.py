@@ -75,9 +75,11 @@ while True:
 
     if state_up==False:
         frequency = frequency + 0.1
+        time.sleep(0.2)
 
     if state_down==False:
         frequency = frequency - 0.1
+        time.sleep(0.2)
     
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -87,9 +89,11 @@ while True:
             x,y = event.pos
             if upButton.collidepoint(x,y):
                 frequency = frequency + 0.1
+                time.sleep(0.2)
 
             if downButton.collidepoint(x,y):
                 frequency = frequency - 0.1
+                time.sleep(0.2)
 
             if playButton.collidepoint(x,y):
                 play()
