@@ -76,11 +76,11 @@ while True:
         play()
 
     if state_up==False:
-        frequency = frequency + 0.1
+        frequency = frequency - 0.1
         time.sleep(0.2)
 
     if state_down==False:
-        frequency = frequency - 0.1
+        frequency = frequency + 0.1
         time.sleep(0.2)
     
     for event in pygame.event.get():
