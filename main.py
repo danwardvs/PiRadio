@@ -6,6 +6,9 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 
 # set up pygame
 pygame.init()
@@ -16,7 +19,7 @@ downButton = Rect(70,215,50,25)
 playButton = Rect(130,215,50,25)
 
 # set up the window
-windowSurface = pygame.display.set_mode((320, 240), pygame.FULLSCREEN, 32)
+windowSurface = pygame.display.set_mode((320, 240), 0, 32)
 pygame.display.set_caption('Hello world!')
 
 # set up the colors
@@ -55,11 +58,6 @@ windowSurface.blit(text, textRect)
 # draw the window onto the screen
 pygame.display.update()
 
-def scroll_up():
-    frequency = frequency + 0.1
-
-def scroll_down():
-    frequency = frequency - 0.1
 
 def play():
     pygame.quit()
@@ -68,10 +66,18 @@ def play():
 # run the game loop
 while True:
 
-    state_18 = GPIO.input(18)
+    state_play = GPIO.input(18)
+    state_up = GPIO.input(21)
+    state_down = GPIO.input(22)
 
-    if state_18==False:
+    if state_play==False:
         play()
+
+    if state_up==False:
+        frequency = frequency + 0.1
+
+    if state_down==False:
+        frequency = frequency - 0.1
     
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -80,10 +86,10 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             x,y = event.pos
             if upButton.collidepoint(x,y):
-                scroll_up()
+                frequency = frequency + 0.1
 
             if downButton.collidepoint(x,y):
-                scroll_down()
+                frequency = frequency - 0.1
 
             if playButton.collidepoint(x,y):
                 play()
@@ -98,6 +104,8 @@ while True:
 
     # draw the window onto the screen
     pygame.display.update()
+
+    
     
             
             
